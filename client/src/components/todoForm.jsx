@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 
-const TodoForm = () => {
+const TodoForm = ({ todos, setTodos }) => {
   const {
     register,
     handleSubmit,
@@ -22,7 +22,7 @@ const TodoForm = () => {
           body: JSON.stringify(body),
         },
       });
-      console.log('Response:', response.data);
+      setTodos([response.data, ...todos]);
     } catch (error) {
       console.error('Error:', error);
     }
