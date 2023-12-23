@@ -2,6 +2,7 @@ import React from 'react';
 import '../App.css';
 import { useForm } from 'react-hook-form';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios';
 
 const TodoForm = () => {
   const {
@@ -10,8 +11,21 @@ const TodoForm = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log('Submitted data:', data);
+  const onSubmit = async (formData) => {
+    try {
+      const { title, description, status } = formData;
+      const body = { title, description, status };
+
+      const response = await axios.post('http://localhost:5000/todos', body, {
+        headers: {
+          'Content-Type': 'application/json',
+          body: JSON.stringify(body),
+        },
+      });
+      console.log('Response:', response.data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   return (
@@ -19,9 +33,9 @@ const TodoForm = () => {
       <h1 className="text-center">My Todo</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-100vw  border border-danger p-3"
+        className="w-100vw  border borde-secondary rounded-3 p-3 bg-light "
       >
-        <div className="mb-3">
+        <div className="mb-3" style={{ height: '50px' }}>
           <input
             type="text"
             className={`form-control ${errors.title ? 'is-invalid' : ''}`}
@@ -39,7 +53,7 @@ const TodoForm = () => {
             <div className="invalid-feedback">{errors.title.message}</div>
           )}
         </div>
-        <div className="mb-3">
+        <div className="mb-3" style={{ height: '90px' }}>
           <textarea
             className={`form-control no-resize ${
               errors.description ? 'is-invalid' : ''
@@ -58,13 +72,16 @@ const TodoForm = () => {
             <div className="invalid-feedback">{errors.description.message}</div>
           )}
         </div>
-        <div className="mb-3">
+        <div className="mb-3" style={{ height: '50px' }}>
           <select
             className={`form-select ${errors.status ? 'is-invalid' : ''}`}
             id="status"
+            defaultValue=""
             {...register('status', { required: 'Status is required' })}
           >
-            <option value="">Select Status</option>
+            <option value="" disabled hidden>
+              Select Status
+            </option>
             <option value="Done">Done</option>
             <option value="In Progress">In Progress</option>
             <option value="Pending">Pending</option>
@@ -73,7 +90,7 @@ const TodoForm = () => {
             <div className="invalid-feedback">{errors.status.message}</div>
           )}
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary mt-2">
           Add Todo
         </button>
       </form>
