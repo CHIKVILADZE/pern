@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
-const TodoEditModal = ({ todo, setTodos }) => {
+const TodoEditModal = ({ todo, setTodos, t }) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -48,17 +48,17 @@ const TodoEditModal = ({ todo, setTodos }) => {
   return (
     <>
       <Button className="btn btn-warning" onClick={handleShow}>
-        Edit
+        {t('buttons.editTodo')}
       </Button>
 
       <Modal show={show} onHide={originalValues}>
         <Modal.Header closeButton>
-          <Modal.Title>Edit Todo</Modal.Title>
+          <Modal.Title>{t('modal.editTodo')} </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form className="w-100vw  border borde-secondary rounded-3 p-3 bg-light ">
             <div className="mb-3" style={{ height: '50px' }}>
-              <label>Edit Title</label>
+              <label>{t('modal.editTitle')} </label>
               <input
                 type="text"
                 className="form-control "
@@ -68,7 +68,7 @@ const TodoEditModal = ({ todo, setTodos }) => {
               />
             </div>
             <div className="mb-3" style={{ height: '90px' }}>
-              <label>Edit Description</label>
+              <label>{t('modal.editDescription')} </label>
               <textarea
                 className="form-control no-resize"
                 id="description"
@@ -77,7 +77,7 @@ const TodoEditModal = ({ todo, setTodos }) => {
               />
             </div>
             <div className="mb-3" style={{ height: '50px' }}>
-              <label>Edit Status</label>
+              <label>{t('modal.editStatus')} </label>
               <select
                 className="form-select"
                 id="status"
@@ -97,10 +97,10 @@ const TodoEditModal = ({ todo, setTodos }) => {
             className="mt-2"
             onClick={(e) => updateTodo(e)}
           >
-            Save changes
+            {t('modal.saveChanges')}{' '}
           </Button>
           <Button variant="secondary" onClick={originalValues}>
-            Close
+            {t('modal.close')}
           </Button>
         </Modal.Footer>
       </Modal>

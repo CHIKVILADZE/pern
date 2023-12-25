@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import TodoEditModal from './TodoEditModal';
 
-const TodoList = ({ todos, setTodos }) => {
+const TodoList = ({ todos, setTodos, t }) => {
   const getTodos = async () => {
     try {
       const response = await axios.get('http://localhost:5000/todos');
@@ -34,11 +34,11 @@ const TodoList = ({ todos, setTodos }) => {
       <table className="table table-bordered">
         <thead>
           <tr>
-            <th scope="col">Title</th>
-            <th scope="col">Description</th>
-            <th scope="col">Status</th>
-            <th scope="col">Edit</th>
-            <th scope="col">Delete</th>
+            <th scope="col">{t('table.title')}</th>
+            <th scope="col">{t('table.description')}</th>
+            <th scope="col">{t('table.status')}</th>
+            <th scope="col">{t('buttons.editTodo')}</th>
+            <th scope="col">{t('table.deleteTodo')}</th>
           </tr>
         </thead>
         <tbody>
@@ -48,14 +48,14 @@ const TodoList = ({ todos, setTodos }) => {
               <td>{todo.description}</td>
               <td>{todo.status}</td>
               <td>
-                <TodoEditModal todo={todo} setTodos={setTodos} />
+                <TodoEditModal todo={todo} setTodos={setTodos} t={t} />
               </td>
               <td>
                 <button
                   className="btn btn-danger"
                   onClick={() => deleteTodo(todo.todo_id)}
                 >
-                  Delete
+                  {t('buttons.deleteTodo')}
                 </button>
               </td>
             </tr>

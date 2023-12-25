@@ -5,8 +5,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import ReactSwitch from 'react-switch';
 import { ThemeContext } from '../App';
+import { useTranslation } from 'react-i18next';
 
-const TodoForm = ({ todos, setTodos }) => {
+const TodoForm = ({ todos, setTodos, t, handleChangeLanguage }) => {
   const { theme, toogleTheme } = useContext(ThemeContext);
 
   const {
@@ -27,22 +28,29 @@ const TodoForm = ({ todos, setTodos }) => {
         },
       });
       setTodos([response.data, ...todos]);
-      event.target.reset(); // Resetting the form
+      event.target.reset();
     } catch (error) {
       console.error('Error:', error);
     }
   };
 
   return (
-    <div className="container mt-3 rounded-3">
+    <div className="rounded-3">
       <div className="d-flex justify-content-between w-100vw">
         <div className="d-flex flex-column gap-2 mb-3">
-          <span>{theme === 'light' ? 'Dark Mode' : 'Light Mode'}</span>
+          <span>
+            {theme === 'light'
+              ? `${t('header.spanDark')}`
+              : `${t('header.spanLight')}`}
+          </span>
           <ReactSwitch onChange={toogleTheme} checked={theme === 'dark'} />
         </div>
 
-        <h1 className="text-center">My Todo</h1>
-        <div>Hello</div>
+        <h1 className="text-center">{t('header.title')}</h1>
+        <div className="">
+          <button onClick={() => handleChangeLanguage('en')}>En</button>
+          <button onClick={() => handleChangeLanguage('ru')}>Ru</button>
+        </div>
       </div>
 
       <form
@@ -105,7 +113,7 @@ const TodoForm = ({ todos, setTodos }) => {
           )}
         </div>
         <button type="submit" className="btn btn-primary mt-2">
-          Add Todo
+          {t('buttons.addTodo')}
         </button>
       </form>
     </div>
