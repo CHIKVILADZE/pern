@@ -29,11 +29,11 @@ const TodoForm = ({ todos, setTodos }) => {
   };
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-3">
       <h1 className="text-center">My Todo</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-100vw  border borde-secondary rounded-3 p-3 bg-light "
+        className="w-100vw  border borde-secondary rounded-3 p-2 bg-light "
       >
         <div className="mb-3" style={{ height: '50px' }}>
           <input

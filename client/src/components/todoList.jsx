@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-import TodoEditModal from './todoEditModal';
+import TodoEditModal from './TodoEditModal';
 
 const TodoList = ({ todos, setTodos }) => {
   const getTodos = async () => {
@@ -23,15 +23,14 @@ const TodoList = ({ todos, setTodos }) => {
   const deleteTodo = async (id) => {
     try {
       await axios.delete(`http://localhost:5000/todos/${id}`);
-      setTodos(todos.filter((todo) => todo.todo_id !== id));
+      setTodos((prevTodos) => prevTodos.filter((todo) => todo.todo_id !== id));
     } catch (error) {
       console.error(error.message);
     }
   };
 
-  console.log(todos);
   return (
-    <div className="container mt-5">
+    <div className="container mt-4">
       <table className="table table-bordered">
         <thead>
           <tr>
