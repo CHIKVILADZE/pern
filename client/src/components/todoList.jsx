@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import TodoEditModal from './TodoEditModal';
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import PDFFile from './PDFFile';
 
 const TodoList = ({ todos, setTodos, t }) => {
   const getTodos = async () => {
@@ -29,8 +31,20 @@ const TodoList = ({ todos, setTodos, t }) => {
     }
   };
 
+  console.log('asas', todos);
+
   return (
     <div className="container mt-4">
+      <div className="d-flex justify-content-end">
+        <PDFDownloadLink
+          document={<PDFFile t={t} todos={todos} />}
+          fileName="todo-list.pdf"
+        >
+          {({ blob, url, loading, error }) =>
+            loading ? 'Loading document...' : 'Download PDF'
+          }
+        </PDFDownloadLink>
+      </div>
       <table className="table table-bordered">
         <thead>
           <tr>
