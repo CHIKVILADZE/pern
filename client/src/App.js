@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { createContext, useState } from 'react';
 import './App.css';
 import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
 import Pagination from './components/Pagination';
 
+export const ThemeContext = createContext(null);
+
 function App() {
+  const [theme, setTheme] = useState('light');
   const [todos, setTodos] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -15,19 +18,25 @@ function App() {
 
   const currentTodo = todos.slice(firstTodoIndex, lastTodoIndex);
 
+  const toogleTheme = () => {
+    setTheme((curr) => (curr === 'light' ? 'dark' : 'light'));
+  };
+
   return (
-    <div className="App">
-      <div className="container">
-        <TodoForm todos={todos} setTodos={setTodos} />
-        <TodoList todos={currentTodo} setTodos={setTodos} />
-        <Pagination
-          totalTodos={todos.length}
-          todosPerPage={todosPerPage}
-          setCurrentPage={setCurrentPage}
-          currentPage={currentPage}
-        />
+    <ThemeContext.Provider value={{ theme, toogleTheme }}>
+      <div className="App" id={theme}>
+        <div className="container">
+          <TodoForm todos={todos} setTodos={setTodos} />
+          <TodoList todos={currentTodo} setTodos={setTodos} />
+          <Pagination
+            totalTodos={todos.length}
+            todosPerPage={todosPerPage}
+            setCurrentPage={setCurrentPage}
+            currentPage={currentPage}
+          />
+        </div>
       </div>
-    </div>
+    </ThemeContext.Provider>
   );
 }
 

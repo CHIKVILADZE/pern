@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import '../App.css';
 import { useForm } from 'react-hook-form';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
+import ReactSwitch from 'react-switch';
+import { ThemeContext } from '../App';
 
 const TodoForm = ({ todos, setTodos }) => {
+  const { theme, toogleTheme } = useContext(ThemeContext);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (formData) => {
+  const onSubmit = async (formData, event) => {
     try {
       const { title, description, status } = formData;
       const body = { title, description, status };
@@ -23,17 +27,27 @@ const TodoForm = ({ todos, setTodos }) => {
         },
       });
       setTodos([response.data, ...todos]);
+      event.target.reset(); // Resetting the form
     } catch (error) {
       console.error('Error:', error);
     }
   };
 
   return (
-    <div className="container mt-3">
-      <h1 className="text-center">My Todo</h1>
+    <div className="container mt-3 rounded-3">
+      <div className="d-flex justify-content-between w-100vw">
+        <div className="d-flex flex-column gap-2 mb-3">
+          <span>{theme === 'light' ? 'Dark Mode' : 'Light Mode'}</span>
+          <ReactSwitch onChange={toogleTheme} checked={theme === 'dark'} />
+        </div>
+
+        <h1 className="text-center">My Todo</h1>
+        <div>Hello</div>
+      </div>
+
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-100vw  border borde-secondary rounded-3 p-2 bg-light "
+        className="main w-100vw  border borde-secondary rounded-3 p-2  "
       >
         <div className="mb-3" style={{ height: '50px' }}>
           <input

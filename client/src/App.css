@@ -6,6 +6,8 @@
 
 .App {
   text-align: center;
+  width: 100vw;
+  height: 100vh;
 }
 
 .App-logo {
@@ -15,4 +17,43 @@
 
 .no-resize {
   resize: none;
+}
+
+#dark {
+  background-color: #3c3c3c;
+}
+
+#dark h1 {
+  color: white;
+}
+
+#dark form {
+  background-color: #b4b4b4;
+  color: white;
+}
+#light form {
+  background-color: #f9f9f9;
+  color: white;
+}
+
+#dark th,
+#dark td {
+  background-color: #616161;
+  color: white;
+}
+
+#dark input,
+#dark textarea,
+#dark select {
+  background-color: #f0f0f0;
+  color: black;
+}
+
+#light span {
+  color: black;
+  font-size: 14px;
+}
+
+#dark span {
+  color: white;
 }
