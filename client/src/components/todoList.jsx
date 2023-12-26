@@ -50,7 +50,7 @@ const TodoList = ({ todos, setTodos, t }) => {
             <th scope="col">{t('table.description')}</th>
             <th scope="col">{t('table.status')}</th>
             <th scope="col">{t('buttons.editTodo')}</th>
-            <th scope="col">{t('table.deleteTodo')}</th>
+            <th scope="col">{t('buttons.deleteTodo')}</th>
           </tr>
         </thead>
         <tbody>
