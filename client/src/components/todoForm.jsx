@@ -48,8 +48,12 @@ const TodoForm = ({ todos, setTodos, t, handleChangeLanguage }) => {
 
         <h1 className="text-center">{t('header.title')}</h1>
         <div className="">
-          <button onClick={() => handleChangeLanguage('en')}>En</button>
-          <button onClick={() => handleChangeLanguage('ru')}>Ru</button>
+          <button onClick={() => handleChangeLanguage('en')} className="p-2">
+            En
+          </button>
+          <button onClick={() => handleChangeLanguage('ru')} className="p-2">
+            Ru
+          </button>
         </div>
       </div>
 

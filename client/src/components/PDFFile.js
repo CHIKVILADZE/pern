@@ -72,6 +72,7 @@ function PDFFile({ todos, t }) {
 
     getAllTodos();
   }, []);
+
   return (
     <Document>
       <Page style={styles.body}>

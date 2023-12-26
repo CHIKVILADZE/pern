@@ -31,8 +31,6 @@ const TodoList = ({ todos, setTodos, t }) => {
     }
   };
 
-  console.log('asas', todos);
-
   return (
     <div className="container mt-4">
       <div className="d-flex justify-content-end">
